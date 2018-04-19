@@ -2,18 +2,60 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: "java"
+apply plugin: 'java'
 
 dependencies {
-    compile "org.apache.commons:commons-lang3:3.3.2"
+    compile 'org.apache.commons:commons-lang3:3.3.2'
 }
 
 sourceSets {
-    main.java.srcDir "src/main"
-    test.java.srcDir "src/test"
+    main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }
 
 jar {
     from configurations.compile.collect { zipTree it }
-    manifest.attributes "Main-Class": "com.daniel1147.gradleTutorial.Main"
+    manifest.attributes 'Main-Class': 'com.daniel1147.gradleTutorial.Main'
+}
+
+task hello {
+    group 'greeting'
+    description 'Greets you.'
+
+    // configuration phase
+    // println 'hello from configuration phase'
+    ext.greeting = 'Hey, how\'s it going?'
+
+    // execution phase
+    // doLast { println 'hello' }
+    // doLast { println 'hello again' }
+    // doFirst { println 'start hello' }
+    doLast { println "Greeting: $greeting" }
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    main 'com.daniel1147.gradleTutorial.Main'
+    classpath sourceSets.main.runtimeClasspath
+    args 'Hello', 'World', '!'
+}
+
+task runJar(type: Exec, dependsOn: jar) {
+    // java -jar build/libs/project.jar Hello World
+    executable 'java'
+    args '-jar', "$jar.archivePath", 'Hello', 'World'
+}
+
+task optional {
+    // onlyIf {true}
+    // println 'optional on configuration phase'
+} << {
+    println 'optional enabled!'
+}
+
+optional.enabled = false
+
+task writeGreeting {
+    outputs.file 'greeting.txt'
+} << {
+    file('greeting.txt').text = 'Hello, everyone.'
 }
