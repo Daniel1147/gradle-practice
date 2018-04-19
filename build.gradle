@@ -4,13 +4,8 @@ repositories {
 
 apply plugin: "java"
 
-configurations {
-    myConfig
-}
-
 dependencies {
     compile "org.apache.commons:commons-lang3:3.3.2"
-    myConfig "org.apache.commons:commons-lang3:3.3.2"
 }
 
 sourceSets {
@@ -19,6 +14,6 @@ sourceSets {
 }
 
 jar {
-    from configurations.myConfig.collect { zipTree it }
+    from configurations.compile.collect { zipTree it }
     manifest.attributes "Main-Class": "com.daniel1147.gradleTutorial.Main"
 }
