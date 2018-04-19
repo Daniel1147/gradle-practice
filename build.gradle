@@ -22,6 +22,10 @@ task hello {
     group 'greeting'
     description 'Greets you.'
 
+    // configuration phase
+    println 'hello from configuration phase'
+
+    // execution phase
     doLast { println 'hello' }
     doLast { println 'hello again' }
     doFirst { println 'start hello' }
