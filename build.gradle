@@ -53,3 +53,9 @@ task optional {
 }
 
 optional.enabled = false
+
+task writeGreeting {
+    outputs.file 'greeting.txt'
+} << {
+    file('greeting.txt').text = 'Hello, everyone.'
+}
