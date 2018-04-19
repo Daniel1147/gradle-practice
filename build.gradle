@@ -33,6 +33,12 @@ task hello {
     doLast { println "Greeting: $greeting" }
 }
 
+task run(type: JavaExec, dependsOn: classes) {
+    main 'com.daniel1147.gradleTutorial.Main'
+    classpath sourceSets.main.runtimeClasspath
+    args 'Hello', 'World', '!'
+}
+
 task runJar(type: Exec, dependsOn: jar) {
     // java -jar build/libs/project.jar Hello World
     executable 'java'
