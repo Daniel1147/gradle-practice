@@ -44,3 +44,9 @@ task runJar(type: Exec, dependsOn: jar) {
     executable 'java'
     args '-jar', "$jar.archivePath", 'Hello', 'World'
 }
+
+task optional {
+    onlyIf {false}
+} << {
+    println 'optional enabled!'
+}
