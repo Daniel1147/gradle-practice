@@ -23,4 +23,6 @@ task hello {
     description 'Greets you.'
 
     doLast { println 'hello' }
+    doLast { println 'hello again' }
+    doFirst { println 'start hello' }
 }
