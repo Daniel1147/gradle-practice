@@ -32,3 +32,9 @@ task hello {
     // doFirst { println 'start hello' }
     doLast { println "Greeting: $greeting" }
 }
+
+task runJar(type: Exec, dependsOn: jar) {
+    // java -jar build/libs/project.jar Hello World
+    executable 'java'
+    args '-jar', "$jar.archivePath", 'Hello', 'World'
+}
