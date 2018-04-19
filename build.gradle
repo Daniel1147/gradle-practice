@@ -24,9 +24,11 @@ task hello {
 
     // configuration phase
     println 'hello from configuration phase'
+    ext.greeting = 'Hey, how\'s it going?'
 
     // execution phase
     doLast { println 'hello' }
     doLast { println 'hello again' }
     doFirst { println 'start hello' }
+    doLast { println "Greeting: $greeting" }
 }
