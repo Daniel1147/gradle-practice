@@ -46,8 +46,10 @@ task runJar(type: Exec, dependsOn: jar) {
 }
 
 task optional {
-    onlyIf {false}
-    println 'optional on configuration phase'
+    // onlyIf {true}
+    // println 'optional on configuration phase'
 } << {
     println 'optional enabled!'
 }
+
+optional.enabled = false
