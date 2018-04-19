@@ -21,4 +21,6 @@ jar {
 task hello {
     group 'greeting'
     description 'Greets you.'
+
+    doLast { println 'hello' }
 }
