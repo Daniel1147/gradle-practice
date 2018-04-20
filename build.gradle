@@ -3,6 +3,7 @@ repositories {
 }
 
 apply plugin: 'java'
+apply plugin: GreetingPlugin
 
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
@@ -115,4 +116,15 @@ task taskException << {
     println '1'
     throw new StopExecutionException()
     println '2'
+}
+
+class GreetingPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.task('greetingsFromPlugin') {
+            group 'My Plugin'
+            description 'a custom plugin!'
+        } << {
+            println 'Welcome to GreetingPlugin!'
+        }
+    }
 }
