@@ -59,3 +59,59 @@ task writeGreeting {
 } << {
     file('greeting.txt').text = 'Hello, everyone.'
 }
+
+task upper << {
+    String words = 'this is a sentence of upper case.'
+    println 'Original: ' + words
+    println 'Result: ' + words.toUpperCase()
+}
+
+task count << {
+    4.times {
+        println "$it "
+    }
+}
+
+task groovyJDK << {
+    String myName = 'Daniel'
+    myName.each() {
+        println "$it"
+    }
+}
+
+task lib1 << {
+    println 'this is lib1'
+}
+
+task lib2 << {
+    println 'this is lib1'
+}
+
+task lib3 << {
+    println 'this is lib1'
+}
+
+task taskA << {
+    println 'this is taskA'
+}
+
+taskA.dependsOn {
+    tasks.findAll {
+        task -> task.name.startsWith 'lib'
+    }
+}
+
+task copy(type: Copy) {
+   description 'Copies the resource directory to the target directory.'
+   from 'resources'
+   into 'target'
+   include('**/*.txt', '**/*.xml', '**/*.properties')
+} << {
+   println("description applied")
+}
+
+task taskException << {
+    println '1'
+    throw new StopExecutionException()
+    println '2'
+}
