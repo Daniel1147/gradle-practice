@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: GreetingPlugin
+apply from: 'about.gradle'
 
 description 'gradle practice'
 
@@ -11,7 +12,6 @@ repositories {
     mavenCentral()
 }
 
-apply from: 'about.gradle'
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
     testCompile 'junit:junit:4.+'
