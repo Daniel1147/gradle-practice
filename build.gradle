@@ -22,33 +22,36 @@ jar {
 }
 
 task hello {
-    group 'greeting'
+    group 'Tutorial 1'
     description 'Greets you.'
 
     // configuration phase
     // println 'hello from configuration phase'
-    ext.greeting = 'Hey, how\'s it going?'
+    ext.greetingMsg = 'Hey, how\'s it going?'
 
     // execution phase
     // doLast { println 'hello' }
     // doLast { println 'hello again' }
     // doFirst { println 'start hello' }
-    doLast { println "Greeting: $greeting" }
+    doLast { println "Greeting: $greetingMsg" }
 }
 
 task run(type: JavaExec, dependsOn: classes) {
+    group 'Tutorial 3'
     main 'com.daniel1147.gradleTutorial.Main'
     classpath sourceSets.main.runtimeClasspath
     args 'Hello', 'World', '!'
 }
 
 task runJar(type: Exec, dependsOn: jar) {
+    group 'Tutorial 3'
     // java -jar build/libs/project.jar Hello World
     executable 'java'
     args '-jar', "$jar.archivePath", 'Hello', 'World'
 }
 
 task optional {
+    group 'Tutorial 3'
     // onlyIf {true}
     // println 'optional on configuration phase'
 } << {
@@ -58,43 +61,47 @@ task optional {
 optional.enabled = false
 
 task writeGreeting {
+    group 'Tutorial 3'
     outputs.file 'greeting.txt'
 } << {
     file('greeting.txt').text = 'Hello, everyone.'
 }
 
-task upper << {
+task upper(group: 'Tutorial 1') << {
     String words = 'this is a sentence of upper case.'
     println 'Original: ' + words
     println 'Result: ' + words.toUpperCase()
 }
 
-task count << {
+task count(group: 'Tutorial Task') << {
     4.times {
         println "$it "
     }
 }
 
-task groovyJDK << {
+task groovyJDK(group: 'Tutorial Task') << {
     String myName = 'Daniel'
     myName.each() {
         println "$it"
     }
 }
 
-task lib1 << {
+task lib1(group: 'Tutorial Task') << {
+    group 'Tutorial Task'
     println 'this is lib1'
 }
 
-task lib2 << {
+task lib2(group: 'Tutorial Task') << {
+    group 'Tutorial Task'
     println 'this is lib1'
 }
 
-task lib3 << {
+task lib3(group: 'Tutorial Task') << {
+    group 'Tutorial Task'
     println 'this is lib1'
 }
 
-task taskA << {
+task taskA(group: 'Tutorial Task') << {
     println 'this is taskA'
 }
 
@@ -104,7 +111,7 @@ taskA.dependsOn {
     }
 }
 
-task copy(type: Copy) {
+task copy(type: Copy, group: 'Tutorial Task') {
    description 'Copies the resource directory to the target directory.'
    from 'resources'
    into 'target'
@@ -113,7 +120,7 @@ task copy(type: Copy) {
    println("description applied")
 }
 
-task taskException << {
+task taskException(group: 'Tutorial Task') << {
     println '1'
     throw new StopExecutionException()
     println '2'
