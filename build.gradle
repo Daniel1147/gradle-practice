@@ -78,3 +78,25 @@ task groovyJDK << {
         println "$it"
     }
 }
+
+task lib1 << {
+    println 'this is lib1'
+}
+
+task lib2 << {
+    println 'this is lib1'
+}
+
+task lib3 << {
+    println 'this is lib1'
+}
+
+task taskA << {
+    println 'this is taskA'
+}
+
+taskA.dependsOn {
+    tasks.findAll {
+        task -> task.name.startsWith 'lib'
+    }
+}
