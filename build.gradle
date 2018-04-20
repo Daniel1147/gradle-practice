@@ -13,10 +13,12 @@ dependencies {
     testCompile 'junit:junit:4.+'
 }
 
-sourceSets {
-    main.java.srcDir 'src/main/java'
-    test.java.srcDir 'src/test/java'
-}
+// since we follow standard directory layout
+// there no need to define srcDir
+// sourceSets {
+//     main.java.srcDir 'src/main/java'
+//     test.java.srcDir 'src/test/java'
+// }
 
 jar {
     from configurations.compile.collect { zipTree it }
