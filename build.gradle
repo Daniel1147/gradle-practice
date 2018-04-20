@@ -106,5 +106,12 @@ task copy(type: Copy) {
    from 'resources'
    into 'target'
    include('**/*.txt', '**/*.xml', '**/*.properties')
+} << {
    println("description applied")
+}
+
+task taskException << {
+    println '1'
+    throw new StopExecutionException()
+    println '2'
 }
