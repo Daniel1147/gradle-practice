@@ -71,3 +71,10 @@ task count << {
         println "$it "
     }
 }
+
+task groovyJDK << {
+    String myName = 'Daniel'
+    myName.each() {
+        println "$it"
+    }
+}
