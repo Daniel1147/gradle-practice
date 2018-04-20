@@ -1,3 +1,5 @@
+description 'gradle practice'
+
 repositories {
     mavenCentral()
 }
@@ -147,4 +149,20 @@ class GreetingPlugin implements Plugin<Project> {
 class GreetingPluginExtension {
     String message
     String target
+}
+
+task task1(group: 'Build Simulation') << {
+   println 'compiling source'
+}
+
+task task2(group: 'Build Simulation', dependsOn: task1) << {
+   println 'compiling unit tests'
+}
+
+task task3(group: 'Build Simulation', dependsOn: [task1, task2]) << {
+   println 'running unit tests'
+}
+
+task task4(group: 'Build Simulation', dependsOn: [task1, task3]) << {
+   println 'building the distribution'
 }
