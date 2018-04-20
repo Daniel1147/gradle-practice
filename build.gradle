@@ -100,3 +100,11 @@ taskA.dependsOn {
         task -> task.name.startsWith 'lib'
     }
 }
+
+task copy(type: Copy) {
+   description 'Copies the resource directory to the target directory.'
+   from 'resources'
+   into 'target'
+   include('**/*.txt', '**/*.xml', '**/*.properties')
+   println("description applied")
+}
