@@ -126,13 +126,21 @@ task taskException(group: 'Tutorial Task') << {
     println '2'
 }
 
+greeting.gMessage = 'Yo Gradle!'
+
 class GreetingPlugin implements Plugin<Project> {
     void apply(Project project) {
-        project.task('greetingsFromPlugin') {
-            group 'Binary Plugin'
+        project.extensions.create('greeting', GreetingPluginExtension)
+
+        project.task('pluginGreeting') {
+            group 'Tutorial Plugin'
             description 'a custom plugin!'
         } << {
-            println 'Welcome to GreetingPlugin!'
+            println project.greeting.gMessage
         }
     }
+}
+
+class GreetingPluginExtension {
+    String gMessage = 'greeting message from greeting extension'
 }
