@@ -59,3 +59,9 @@ task writeGreeting {
 } << {
     file('greeting.txt').text = 'Hello, everyone.'
 }
+
+task upper << {
+    String words = 'this is a sentence of upper case.'
+    println 'Original: ' + words
+    println 'Result: ' + words.toUpperCase()
+}
