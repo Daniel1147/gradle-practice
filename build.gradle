@@ -65,3 +65,9 @@ task upper << {
     println 'Original: ' + words
     println 'Result: ' + words.toUpperCase()
 }
+
+task count << {
+    4.times {
+        println "$it "
+    }
+}
