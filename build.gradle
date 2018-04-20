@@ -58,8 +58,9 @@ task optional {
     group 'Tutorial 3'
     // onlyIf {true}
     // println 'optional on configuration phase'
-} << {
-    println 'optional enabled!'
+    doLast {
+        println 'optional enabled!'
+    }
 }
 
 optional.enabled = false
@@ -67,46 +68,61 @@ optional.enabled = false
 task writeGreeting {
     group 'Tutorial 3'
     outputs.file 'greeting.txt'
-} << {
-    file('greeting.txt').text = 'Hello, everyone.'
-}
-
-task upper(group: 'Tutorial 1') << {
-    String words = 'this is a sentence of upper case.'
-    println 'Original: ' + words
-    println 'Result: ' + words.toUpperCase()
-}
-
-task count(group: 'Tutorial Task') << {
-    4.times {
-        println "$it "
+    doLast {
+        file('greeting.txt').text = 'Hello, everyone.'
     }
 }
 
-task groovyJDK(group: 'Tutorial Task') << {
-    String myName = 'Daniel'
-    myName.each() {
-        println "$it"
+task upper(group: 'Tutorial 1') {
+    doLast {
+        String words = 'this is a sentence of upper case.'
+        println 'Original: ' + words
+        println 'Result: ' + words.toUpperCase()
     }
 }
 
-task lib1(group: 'Tutorial Task') << {
-    group 'Tutorial Task'
-    println 'this is lib1'
+task count(group: 'Tutorial Task') {
+    doLast {
+        4.times {
+            println "$it "
+        }
+    }
 }
 
-task lib2(group: 'Tutorial Task') << {
-    group 'Tutorial Task'
-    println 'this is lib1'
+task groovyJDK(group: 'Tutorial Task') {
+    doLast {
+        String myName = 'Daniel'
+        myName.each() {
+            println "$it"
+        }
+    }
 }
 
-task lib3(group: 'Tutorial Task') << {
-    group 'Tutorial Task'
-    println 'this is lib1'
+task lib1(group: 'Tutorial Task') {
+    doLast {
+        group 'Tutorial Task'
+        println 'this is lib1'
+    }
 }
 
-task taskA(group: 'Tutorial Task') << {
-    println 'this is taskA'
+task lib2(group: 'Tutorial Task') {
+    doLast {
+        group 'Tutorial Task'
+        println 'this is lib2'
+    }
+}
+
+task lib3(group: 'Tutorial Task') {
+    doLast {
+        group 'Tutorial Task'
+        println 'this is lib3'
+    }
+}
+
+task taskA(group: 'Tutorial Task') {
+    doLast {
+        println 'this is taskA'
+    }
 }
 
 taskA.dependsOn {
@@ -116,18 +132,21 @@ taskA.dependsOn {
 }
 
 task copy(type: Copy, group: 'Tutorial Task') {
-   description 'Copies the resource directory to the target directory.'
-   from 'resources'
-   into 'target'
-   include('**/*.txt', '**/*.xml', '**/*.properties')
-} << {
-   println("description applied")
+    description 'Copies the resource directory to the target directory.'
+    from 'resources'
+    into 'target'
+    include('**/*.txt', '**/*.xml', '**/*.properties')
+    doLast {
+        println("description applied")
+    }
 }
 
-task taskException(group: 'Tutorial Task') << {
-    println '1'
-    throw new StopExecutionException()
-    println '2'
+task taskException(group: 'Tutorial Task') {
+    doLast {
+        println '1'
+        throw new StopExecutionException()
+        println '2'
+    }
 }
 
 greeting {
@@ -139,11 +158,18 @@ class GreetingPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.extensions.create('greeting', GreetingPluginExtension)
 
+        // project.task('pluginGreeting') {
+        //     group 'Tutorial Plugin'
+        //     description 'a custom plugin!'
+        // } << {
+        //     println "$project.greeting.message $project.greeting.target"
+        // }
         project.task('pluginGreeting') {
             group 'Tutorial Plugin'
             description 'a custom plugin!'
-        } << {
-            println "$project.greeting.message $project.greeting.target"
+            doLast {
+                println "$project.greeting.message $project.greeting.target"
+            }
         }
     }
 }
@@ -153,18 +179,26 @@ class GreetingPluginExtension {
     String target
 }
 
-task task1(group: 'Build Simulation') << {
-   println 'compiling source'
+task task1(group: 'Build Simulation') {
+    doLast {
+        println 'compiling source'
+    }
 }
 
-task task2(group: 'Build Simulation', dependsOn: task1) << {
-   println 'compiling unit tests'
+task task2(group: 'Build Simulation', dependsOn: task1) {
+    doLast {
+        println 'compiling unit tests'
+    }
 }
 
-task task3(group: 'Build Simulation', dependsOn: [task1, task2]) << {
-   println 'running unit tests'
+task task3(group: 'Build Simulation', dependsOn: [task1, task2]) {
+    doLast {
+        println 'running unit tests'
+    }
 }
 
-task task4(group: 'Build Simulation', dependsOn: [task1, task3]) << {
-   println 'building the distribution'
+task task4(group: 'Build Simulation', dependsOn: [task1, task3]) {
+    doLast {
+        println 'building the distribution'
+    }
 }

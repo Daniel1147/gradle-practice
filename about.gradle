@@ -1,7 +1,8 @@
 task about {
     group 'Script Plugin'
     description 'about Daniel'
-} << {
-    println 'This is Daniel.'
-    println 'I like gradle.'
+    doLast {
+        println 'This is Daniel.'
+        println 'I like gradle.'
+    }
 }
