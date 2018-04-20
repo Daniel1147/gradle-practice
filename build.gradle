@@ -1,13 +1,17 @@
+plugins {
+    id 'com.scuilion.syntastic' version '0.3.8'
+    id 'java'
+}
+
+apply plugin: GreetingPlugin
+
 description 'gradle practice'
 
 repositories {
     mavenCentral()
 }
 
-apply plugin: 'java'
-apply plugin: GreetingPlugin
 apply from: 'about.gradle'
-
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
     testCompile 'junit:junit:4.+'
