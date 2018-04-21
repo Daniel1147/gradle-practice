@@ -208,5 +208,6 @@ task task4(group: 'Build Simulation', dependsOn: [task1, task3]) {
 }
 
 test {
-    exclude '**/Test1.class'
+    // exclude '**/Test1.class'
+    exclude 'com/github/daniel1147/gradleTutorial/Test2.class'
 }
