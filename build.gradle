@@ -206,3 +206,7 @@ task task4(group: 'Build Simulation', dependsOn: [task1, task3]) {
         println 'building the distribution'
     }
 }
+
+test {
+    exclude '**/Test1.class'
+}
