@@ -1,10 +1,10 @@
-package com.daniel1147.gradleTutorial;
+package com.github.daniel1147.gradleTutorial;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.Before;
 
-public class Test2 {
+public class Test1 {
   App app;
 
   @Before
@@ -13,7 +13,7 @@ public class Test2 {
   }
 
   @Test
-  public void testZero() {
-    assertEquals("zero should return 0", 0, app.zero());
+  public void testClassName() {
+    assertEquals("class name should be App", "App", app.className());
   }
 }

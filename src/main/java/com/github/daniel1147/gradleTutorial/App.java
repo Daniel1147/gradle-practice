@@ -1,4 +1,4 @@
-package com.daniel1147.gradleTutorial;
+package com.github.daniel1147.gradleTutorial;
 
 class App {
   public int zero() {

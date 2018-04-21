@@ -1,4 +1,4 @@
-package com.daniel1147.gradleTutorial;
+package com.github.daniel1147.gradleTutorial;
 
 import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
