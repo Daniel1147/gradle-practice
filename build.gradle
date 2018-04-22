@@ -1,12 +1,17 @@
+plugins {
+    id 'com.scuilion.syntastic' version '0.3.8'
+    id 'java'
+}
+
+apply plugin: GreetingPlugin
+apply from: 'about.gradle'
+
 description 'gradle practice'
+version '0.0.1'
 
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'java'
-apply plugin: GreetingPlugin
-apply from: 'about.gradle'
 
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
@@ -22,7 +27,13 @@ dependencies {
 
 jar {
     from configurations.compile.collect { zipTree it }
-    manifest.attributes 'Main-Class': 'com.daniel1147.gradleTutorial.Main'
+    manifest {
+        attributes(
+            'Main-Class': 'com.github.daniel1147.gradleTutorial.Main',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version
+        )
+    }
 }
 
 task hello {
@@ -201,4 +212,10 @@ task task4(group: 'Build Simulation', dependsOn: [task1, task3]) {
     doLast {
         println 'building the distribution'
     }
+}
+
+test {
+    // exclude '**/Test1.class'
+    // exclude 'com/github/daniel1147/gradleTutorial/Test2.class'
+    include 'com/github/daniel1147/gradleTutorial/Test1.class'
 }
